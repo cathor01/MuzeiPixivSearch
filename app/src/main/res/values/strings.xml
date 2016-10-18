@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Muzei Pixiv Search</string>
+    <string name="title_activity_settings">设置</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">图片刷新设置</string>
+
+    <string name="pref_days_title">保留天数</string>
+    <string name="pref_default_days">10</string>
+
+    <string name="pref_daily_title">每天保留图片数</string>
+    <string name="pref_default_daily">2</string>
+
+
+    <string name="pref_tag_title">Tag</string>
+    <string name="pref_star_title">最低Like数</string>
+
+    <string name="record">保存</string>
+
+    <string name="pref_login_title">账号信息</string>
+
+    <string name="pref_unlogin">尚未记录</string>
+    <string name="pref_logined">已记录</string>
+
+    <string name="pref_refresh_title">刷新数据</string>
+
+    <string name="pref_change_wifi">仅在Wifi网络环境下更新</string>
+    <string name="pref_change_big_title">加载原图</string>
+    <string name="pref_r18_title">R-18</string>
+    <string name="pref_r18_summary">是否接收R-18内容</string>
+
+    <string name="pref_change_frequency_title">图片更新频率(填写-1永不更新)</string>
+    <string name="pref_default_change_frequency">30</string>
+    <string name="login_id_hint">Pixiv ID</string>
+    <string name="login_password_hint">Password</string>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">数据更新设置</string>
+    <string name="login_information">登陆信息</string>
+    <string name="success">成功</string>
+    <string name="unfinished">请填写所有信息</string>
+    <string name="refresh_title">Pixiv搜索</string>
+    <string name="pref_refresh_summary">当前数据库包含%d条数据</string>
+
+</resources>

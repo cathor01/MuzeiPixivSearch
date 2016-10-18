@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Muzei Pixiv Search</string>
+    <string name="login_id_hint">Pixiv ID</string>
+    <string name="login_password_hint">Password</string>
+    <string name="pref_change_big_title">Load origin pics</string>
+    <string name="pref_change_frequency_title">Image update rate(-1 for never)</string>
+    <string name="pref_change_wifi">Only update via wifi</string>
+    <string name="pref_daily_title">Pictures each day</string>
+    <string name="pref_days_title">How many days</string>
+    <string name="pref_default_change_frequency">30</string>
+    <string name="pref_default_daily">2</string>
+    <string name="pref_default_days">10</string>
+    <string name="pref_header_data_sync">Data Settings</string>
+    <string name="pref_header_general">Update Settings</string>
+    <string name="pref_login_title">Account Info</string>
+    <string name="pref_logined">Saved</string>
+    <string name="pref_r18_summary">Save R-18</string>
+    <string name="pref_r18_title">R-18</string>
+    <string name="pref_refresh_title">Refresh Data</string>
+    <string name="pref_star_title">Min likes</string>
+    <string name="pref_tag_title">Tag</string>
+    <string name="pref_unlogin">No data</string>
+    <string name="record">Save</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="login_information">Login Information</string>
+    <string name="success">Success</string>
+    <string name="unfinished">Please fill in all information</string>
+    <string name="refresh_title">Pixiv Search</string>
+    <string name="pref_refresh_summary">%d items in database</string>
+</resources>

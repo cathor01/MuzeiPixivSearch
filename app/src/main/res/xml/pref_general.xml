@@ -1,0 +1,60 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_days"
+        android:inputType="number"
+        android:key="pixiv_days"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_days_title" />
+
+    <EditTextPreference
+        android:defaultValue="@string/pref_default_daily"
+        android:inputType="number"
+        android:key="pixiv_daily"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_daily_title" />
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:key="pixiv_tag"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_tag_title" />
+
+    <EditTextPreference
+        android:key="pixiv_star"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_star_title" />
+
+    <SwitchPreference
+        android:key="pixiv_r18"
+        android:title="@string/pref_r18_title"
+        android:summary="@string/pref_r18_summary"
+        android:defaultValue="true"/>
+
+    <PreferenceScreen
+        android:title="@string/pref_login_title"
+        android:key="pixiv_login_cookies"
+        android:summary="@string/pref_unlogin"/>
+
+    <PreferenceScreen
+        android:key="pixiv_refresh_button"
+        android:title="@string/pref_refresh_title"/>
+
+
+
+
+</PreferenceScreen>
