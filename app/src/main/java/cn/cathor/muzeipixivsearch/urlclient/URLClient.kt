@@ -285,10 +285,9 @@ class URLClient(val headers: MutableMap<String, String>, val manager: MutableMap
      * */
 
     fun GET(url : URL, data: String): String{
-        var result: URL
-        result = URL(url.toString() + "?" + data)
-        var connection = url.openConnection() as HttpURLConnection
-        if (url.protocol.toLowerCase() == "https") {
+        var result = URL(url.toString() + "?" + data)
+        var connection = result.openConnection() as HttpURLConnection
+        if (result.protocol.toLowerCase() == "https") {
             trustAllHosts()
             connection = connection as HttpsURLConnection
             connection.hostnameVerifier = DO_NOT_VERIFY
@@ -299,7 +298,7 @@ class URLClient(val headers: MutableMap<String, String>, val manager: MutableMap
             connection.setRequestProperty(k, v)
         }
         connection.doInput = true
-        var cookies = getCookies(url)
+        var cookies = getCookies(result)
         if(cookies != null) {
             connection.setRequestProperty("Cookie", cookies)
         }
@@ -318,7 +317,7 @@ class URLClient(val headers: MutableMap<String, String>, val manager: MutableMap
             var headers = connection.headerFields
             if(headers.containsKey(COOKIE_KEY)){
                 var list = headers[COOKIE_KEY]!!
-                setCookies(url, list.joinToString(separator = ";"))
+                setCookies(result, list.joinToString(separator = ";"))
             }
             return unicode2String(sb.toString())
 

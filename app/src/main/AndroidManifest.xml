@@ -32,7 +32,7 @@
         <service android:name="cn.cathor.muzeipixivsearch.source.MuzeiItemSource"
             android:label="@string/app_name"
             android:description="@string/app_name"
-            android:icon="@mipmap/ic_launcher">
+            android:icon="@drawable/page_show">
             <!-- Logo art from: http://dev.pixiv.net/archives/660077.html -->
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource" />

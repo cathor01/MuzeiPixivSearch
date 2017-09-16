@@ -1,10 +1,13 @@
 package cn.cathor.muzeipixivsearch.settings
 
 
+import android.Manifest
 import android.annotation.TargetApi
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.media.RingtoneManager
 import android.net.Uri
@@ -12,6 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.*
 import android.support.design.widget.TextInputLayout
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
@@ -52,6 +56,40 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         setupActionBar()
         toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //has permission, do operation directly
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    val dialog = AlertDialog.Builder(this)
+                        .setMessage("下载图片需要读写权限，请务必开启。")
+                        .setPositiveButton("开启", {
+                            _, _ ->
+                            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
+                                    111)
+                        })
+                        .setNegativeButton("取消", {
+                            _, _ ->
+                            finish()
+                            this@SettingsActivity.finish()
+                        }).create()
+                    dialog.show()
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                } else {
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
+                            111)
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            }
         }
     }
 

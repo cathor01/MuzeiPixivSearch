@@ -17,6 +17,11 @@ class PixivItemBean {
         var per_page: Int = 0
         var total: Int = 0
         var pages: Int = 0
+        override fun toString(): String {
+            return "PaginationBean(previous=$previous, next=$next, current=$current, per_page=$per_page, total=$total, pages=$pages)"
+        }
+
+
     }
 
     class ResponseBean {
@@ -48,7 +53,7 @@ class PixivItemBean {
         var user: UserBean? = null
         var isIs_manga: Boolean = false
         var isIs_liked: Boolean = false
-        var favorite_id: Int = 0
+        var favorite_id: Long = 0
         var page_count: Int = 0
         var book_style: String? = null
         var type: String? = null

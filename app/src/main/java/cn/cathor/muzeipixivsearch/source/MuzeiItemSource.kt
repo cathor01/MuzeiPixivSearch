@@ -90,23 +90,22 @@ class MuzeiItemSource : RemoteMuzeiArtSource("pixiv search") {
         var flag = 0
         when(reason){
             MuzeiArtSource.UPDATE_REASON_INITIAL ->
-                flag = 0
+                flag = -1
             MuzeiArtSource.UPDATE_REASON_OTHER ->
                 if(token != null) {
-                    for (i in 0 until items.size) {
-                        if (items[i].id == token.toLong()) {
-                            flag = i
-                        }
-                    }
+                    (0 until items.size)
+                            .filter { items[it].id == token.toLong() }
+                            .forEach { flag = it }
                 }
             else ->
                 if(token != null) {
-                    for (i in 0 until items.size) {
-                        if (items[i].id == token.toLong()) {
-                            flag = (i + 1).mod(items.size)
-                        }
-                    }
+                    (0 until items.size)
+                            .filter { items[it].id == token.toLong() }
+                            .forEach { flag = (it + 1).mod(items.size) }
                 }
+        }
+        if (flag < 0 || items.size <= 0){
+            throw RetryException()
         }
         val item = items[flag]
         val uri = findOrDownload(item)
@@ -138,7 +137,7 @@ class MuzeiItemSource : RemoteMuzeiArtSource("pixiv search") {
         }
         var output = FileOutputStream(file)
 
-        var input = RequestController.Builder().build().client.GET_stream(url)
+        var input = RequestController.getInstance().client.GET_stream(url)
         try {
             val buffer = ByteArray(1024 * 5)
             var read = input.read(buffer)
@@ -155,7 +154,7 @@ class MuzeiItemSource : RemoteMuzeiArtSource("pixiv search") {
             file.delete()
             output = FileOutputStream(file)
 
-            input = RequestController.Builder().build().client.GET_stream(item.smallImgUrl!!)
+            input = RequestController.getInstance().client.GET_stream(item.smallImgUrl!!)
             try {
                 val buffer = ByteArray(1024 * 5)
                 var read = input.read(buffer)
@@ -164,9 +163,9 @@ class MuzeiItemSource : RemoteMuzeiArtSource("pixiv search") {
                     read = input.read(buffer)
                 }
             }
-            catch (e: Exception){
-                if (Definition.DEBUG_LOG) debug(e)
-                throw RetryException(e)
+            catch (ee: Exception){
+                if (Definition.DEBUG_LOG) debug(ee)
+                throw RetryException(ee)
             }
             finally {
                 input.close()
@@ -174,7 +173,10 @@ class MuzeiItemSource : RemoteMuzeiArtSource("pixiv search") {
                 file.delete()
             }
         }
-        return Uri.parse("file://${file.absolutePath}")
+        if (file.exists()){
+            return Uri.parse("file://${file.absolutePath}")
+        }
+        throw RetryException()
     }
 
     fun getMD5(info: String): String {

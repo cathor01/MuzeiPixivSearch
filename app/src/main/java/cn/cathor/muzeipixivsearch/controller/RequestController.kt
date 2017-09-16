@@ -75,14 +75,14 @@ class RequestController{
         }
     }
 
-    fun formatURL(tag: String, page: Int) : Map<String, String>{
+    fun formatURL(tag: String, page: Int, mode: String) : Map<String, String>{
         return mapOf("sort" to "date", "include_stats" to "True", "period" to "all",
                 "include_sanity_level" to "True", "page" to "$page", "q" to "$tag",
-                "mode" to "text", "per_page" to "10", "image_sizes" to "px_480mw,large",
+                "mode" to mode, "per_page" to "20", "image_sizes" to "px_480mw,large",
                 "order" to "desc", "types" to "illustration")
     }
 
-    fun search(id: String, password: String, tag: String, allowedTime: Int, minStar: Int, dailyCount: Int, callback: (MutableList<PixivItem>) -> Unit, error: (Exception) -> Unit, status: ((String) -> Unit)? = null, r18: Boolean = true){
+    fun search(id: String, password: String, tag: String, allowedTime: Int, minStar: Int, dailyCount: Int, callback: (MutableList<PixivItem>) -> Unit, error: (Exception) -> Unit, status: ((String) -> Unit)? = null, r18: Boolean = true, mode: String = "tag"){
         async() {
             try {
                 uiThread {
@@ -115,7 +115,7 @@ class RequestController{
                 val baseURL = "https://public-api.secure.pixiv.net/v1/search/works.json"
 
                 var page = 1
-                var params: Map<String, String>? = formatURL(tag, page)
+                var params: Map<String, String>? = formatURL(tag, page, mode)
                 val groupByItems = mutableMapOf<String, MutableList<LittleItem>>()
                 while (params != null) {
                     uiThread {
@@ -124,10 +124,14 @@ class RequestController{
                     if(Definition.DEBUG_LOG) debug(params)
                     val content = client.GET_stream(baseURL, params)
                     page += 1
-                    params = formatURL(tag, page)
+                    params = formatURL(tag, page, mode)
 
                     val pixiv_response = Gson().fromJson(BufferedReader(InputStreamReader(content)), PixivItemBean::class.java)
-                    if (Definition.DEBUG_LOG) debug(pixiv_response)
+                    if (Definition.DEBUG_LOG) debug(pixiv_response.pagination)
+
+                    if (pixiv_response.pagination!!.next == 0){
+                        params = null
+                    }
                     for (item in pixiv_response.response!!){
                         val time = Calendar.getInstance()
                         time.clear()
